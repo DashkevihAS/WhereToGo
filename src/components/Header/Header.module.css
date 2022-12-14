@@ -1,0 +1,121 @@
+.header {
+  background-image: url('/public/BlockHeader.png');
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: cover;
+  height: 280px;
+  padding: 40px;
+}
+.header__wrapper {
+  position: relative;
+  background-position: left;
+  background-size: cover;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 80px 0;
+}
+
+.title {
+  font-size: 54px;
+  line-height: 60px;
+  color: #000000;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.subtitle,
+.subtitleEvents {
+  font-size: 20px;
+  margin-top: 14px;
+}
+.subtitleEvents {
+  margin-top: 35px;
+  margin-bottom: 35px;
+}
+
+.search {
+  display: flex;
+  gap: 29px;
+  margin-top: 23px;
+}
+
+.city {
+  display: inline-block;
+  height: 40px;
+  font-size: 20px;
+  text-align: center;
+  color: #c4c4c4;
+  background: #f1f9fb;
+  border-radius: 50px;
+  padding: 0 40px;
+  margin: 16px 0;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  background-color: rgba(255, 255, 255, 0.6);
+  padding: 10px 20px;
+  border-radius: 30px;
+}
+
+.events {
+  font-size: 38px;
+  line-height: 42px;
+  color: #000000;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.header__burger {
+  margin-left: 48px;
+  cursor: pointer;
+  position: relative;
+}
+
+.header__burger_menu {
+  height: 212px;
+  width: 56px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 50px;
+  position: absolute;
+  right: 0px;
+  padding-top: 70px;
+}
+
+.header__burger_svg {
+  margin: 0 auto;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+
+.header__authText {
+  position: absolute;
+  right: 170px;
+  width: 240px;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 10px;
+  font-size: 18px;
+  line-height: 35px;
+  text-align: center;
+}
+
+.header__authText::after {
+  content: '';
+  position: absolute;
+  top: 20px;
+  right: -10px;
+  width: 0;
+  height: 0;
+  border-left: 10px solid rgba(255, 255, 255, 0.6);
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+}
+
+.login {
+  font-size: 20px;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.45);
+}
