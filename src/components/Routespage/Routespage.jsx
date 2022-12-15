@@ -22,7 +22,7 @@ const Routes = ({ searchValue, setSearchValue }) => {
   return (
     <>
       <div className={style.wrapper} id='routes'>
-        {!authData?.login ? (
+        {!authData[0]?.login ? (
           <div className={style.authBlure} onClick={showMessage}>
             {isShowMessage ? (
               <p className={style.message}>Необходимо авторизоваться </p>

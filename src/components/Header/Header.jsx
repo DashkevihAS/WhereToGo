@@ -38,7 +38,7 @@ export const Header = () => {
                   отдых, который подойдет именно Вам
                 </p>
                 <span className={style.city}>Краснодар</span>
-                {!authData.login && showWarning && (
+                {!authData[0]?.login && showWarning && (
                   <WarningMessage setClose={() => setShowWarning(false)} />
                 )}
               </>
@@ -88,10 +88,10 @@ export const Header = () => {
             )}
           </div>
           <div className={style.header__wrapper}>
-            {authData?.login && (
+            {authData[0]?.login && (
               <div className={style.header__authText}>
                 Добро пожаловать,{' '}
-                <span className={style.login}>{authData?.login} !</span>
+                <span className={style.login}>{authData[0]?.login} !</span>
               </div>
             )}
             <Auth openModal={() => handleOpenModal()} />
@@ -109,7 +109,7 @@ export const Header = () => {
           </div>
         </div>
 
-        {!authData?.login && (
+        {!authData[0]?.login && (
           <Modal active={showModal} closeModal={() => setShowModal(false)} />
         )}
       </Layout>

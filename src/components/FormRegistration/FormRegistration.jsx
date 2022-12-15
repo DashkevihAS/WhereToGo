@@ -13,6 +13,7 @@ export const FormRegistration = ({ closeModal }) => {
   const [showPolicyError, setShowPolicyError] = useState(false);
   const checkRef = useRef(null);
   const signupData = useSelector((state) => state.signup.data);
+  const signupError = useSelector((state) => state.signup.error);
 
   const handleAgree = ({ target }) => setAgree(target.checked);
 
@@ -200,7 +201,7 @@ export const FormRegistration = ({ closeModal }) => {
         {showPolicyError && !agree
           ? 'Ознакомтесь с политикой безопасности'
           : ''}
-        {signupData?.message ? `${signupData.message}` : ''}
+        {signupError ? 'Данный логин или пароль существует' : ''}
       </p>
 
       <button className={style.submit} type='submit'>

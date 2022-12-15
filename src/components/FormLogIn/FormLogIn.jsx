@@ -121,7 +121,7 @@ export const FormLogIn = ({ closeModal, switchToRegistration }) => {
         {!agreePolicy && policyError
           ? 'Ознакомтесь с политикой безопасности'
           : ''}
-        {Array.isArray(authData) ? 'Неверный логин или пароль' : ''}
+        {authData.error ? 'Неверный логин или пароль' : ''}
       </p>
 
       <button className={style.submit} type='submit'>

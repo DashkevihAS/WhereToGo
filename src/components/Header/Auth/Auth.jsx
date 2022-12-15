@@ -10,7 +10,7 @@ export const Auth = ({ openModal }) => {
 
   return (
     <div>
-      {authData?.login ? (
+      {authData[0]?.login ? (
         <button className={style.auth__buttonLogged}>
           <LoggedIcon className={style.auth__icon} />
         </button>

@@ -1,5 +1,7 @@
-// export const API_URI = 'http://localhost:8080/wtg/api/v1';
-export const API_URI = 'https://periodic-morning-slayer.glitch.me/wtg/api/v1';
+export const API_URI = 'http://localhost:8080/wtg/api/v1';
+// export const API_URI = 'https://periodic-morning-slayer.glitch.me/wtg/api/v1';
+
+export const API_URI_AUTH = 'http://localhost:8080/wtg';
 
 export const monthes = [
   'января',

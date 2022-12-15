@@ -20,7 +20,7 @@ export const Tabs = () => {
             <li
               key={3}
               className={
-                !authData?.login
+                !authData[0]?.login
                   ? style.navigation__link + ' ' + style.auth
                   : style.navigation__link
               }
