@@ -1,8 +1,5 @@
-// export const API_URI = 'http://localhost:8080/wtg/api/v1';
-export const API_URI = 'https://abrupt-carnelian-hoof.glitch.me/wtg/api/v1';
-
-// export const API_URI_AUTH = 'http://localhost:8080/wtg';
-export const API_URI_AUTH = 'https://abrupt-carnelian-hoof.glitch.me/wtg';
+export const API_URI = 'http://95.163.237.3:8179/wtg/api/v1';
+// export const API_URI = 'http://localhost:8179/wtg/api/v1';
 
 export const monthes = [
   'января',

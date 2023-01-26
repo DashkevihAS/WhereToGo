@@ -13,7 +13,6 @@ export const FormRegistration = ({ closeModal }) => {
   const [showPolicyError, setShowPolicyError] = useState(false);
   const checkRef = useRef(null);
   const signupData = useSelector((state) => state.signup.data);
-  const signupError = useSelector((state) => state.signup.error);
 
   const handleAgree = ({ target }) => setAgree(target.checked);
 
@@ -155,7 +154,7 @@ export const FormRegistration = ({ closeModal }) => {
         <label className={style.label} htmlFor='userRoleString'>
           Роль
         </label>
-        <p className={style.error}>введите корректный email</p>
+        <p className={style.error}>некорректный email</p>
       </div>
 
       <div className={style.wrap}>
@@ -171,8 +170,10 @@ export const FormRegistration = ({ closeModal }) => {
               message: 'Заполните поле',
             },
             pattern: {
-              value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,}/,
-              message: 'минимум 6 символов: строчная, прописная буква и цифра',
+              value: /.{3,}/,
+              message: 'минимум 3 символа',
+              // value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,}/,
+              // message: 'минимум 6 символов: строчная, прописная буква и цифра',
             },
           })}
         />
@@ -201,7 +202,7 @@ export const FormRegistration = ({ closeModal }) => {
         {showPolicyError && !agree
           ? 'Ознакомтесь с политикой безопасности'
           : ''}
-        {signupError ? 'Данный логин или пароль существует' : ''}
+        {signupData?.message ? `${signupData.message}` : ''}
       </p>
 
       <button className={style.submit} type='submit'>

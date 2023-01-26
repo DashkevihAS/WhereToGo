@@ -27,7 +27,8 @@ export const FormLogIn = ({ closeModal, switchToRegistration }) => {
   };
 
   const validPassword = (value) => {
-    setPasswordError(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,}/.test(value));
+    // setPasswordError(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,}/.test(value));
+    setPasswordError(value.length >= 3);
   };
 
   const handleLogin = ({ target }) => {
@@ -90,7 +91,8 @@ export const FormLogIn = ({ closeModal, switchToRegistration }) => {
         </label>
         {!passwordError && passwordDirty && (
           <p className={style.errorPassword}>
-            минимум 6 символов: строчная, прописная буква и цифра
+            {/* минимум 6 символов: строчная, прописная буква и цифра */}
+            минимум 3 символa
           </p>
         )}
       </div>
@@ -121,7 +123,7 @@ export const FormLogIn = ({ closeModal, switchToRegistration }) => {
         {!agreePolicy && policyError
           ? 'Ознакомтесь с политикой безопасности'
           : ''}
-        {authData.error ? 'Неверный логин или пароль' : ''}
+        {Array.isArray(authData) ? 'Неверный логин или пароль' : ''}
       </p>
 
       <button className={style.submit} type='submit'>

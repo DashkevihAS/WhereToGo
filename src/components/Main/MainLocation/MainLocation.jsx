@@ -1,29 +1,27 @@
 import React from 'react';
 
-import { ReactComponent as Shortcut } from './img/shortcut.svg';
 import Spinner from '../../Spinner/Spinner';
 
-import { API_URI } from '../../../assets/const';
-import axios from 'axios';
 import Slider from 'react-slick';
 
-import { SearchLocation } from './SearchLocation/SearchLocation';
-import { CardMore } from '../../CardMore/CardMore';
-import { CardMainLocation } from '../../CardMainLocation/CardMainLocation';
+import SectionSearch from '../../SectionSearch';
+import CardMore from '../../CardMore';
+import CardMainLocation from '../../CardMainLocation';
+import Layout from '../../../Layouts/Layout';
+import SectionTitle from '../../SectionTitle';
 
 import style from './MainLocation.module.css';
 import './slick.css';
 import './slick-theme.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchLocations } from '../../../store/locations/locationsAction';
 
-export const MainLocation = ({ searchValue, setSearchValue }) => {
-  const [locations, setLocations] = React.useState([]);
+export const MainLocation = () => {
+  const dispatch = useDispatch();
+  const locations = useSelector((state) => state.locations.data);
 
   React.useEffect(() => {
-    const fetchEvents = async () => {
-      const { data } = await axios(`${API_URI}/locations`);
-      setLocations(data);
-    };
-    fetchEvents();
+    dispatch(fetchLocations());
   }, []);
 
   const settings = {
@@ -32,32 +30,55 @@ export const MainLocation = ({ searchValue, setSearchValue }) => {
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1125,
+        settings: {
+          slidesToShow: 4,
+          infinite: true,
+        },
+      },
+      {
+        breakpoint: 992,
+        settings: {
+          slidesToShow: 3,
+          infinite: true,
+        },
+      },
+
+      {
+        breakpoint: 870,
+        settings: 'unslick', // destroys slick
+      },
+    ],
   };
 
   return (
-    <section className={style.location}>
-      <div className={style.wrapper} id='locations'>
-        <Shortcut className={style.svg} width={85} height={85} />
-        <h2 className={style.title}>рекомендуемые локации</h2>
-      </div>
-      <SearchLocation
-        searchValue={searchValue}
-        setSearchValue={setSearchValue}
-      />
-      <div className={style.slider}>
-        <Slider {...settings}>
-          {locations.length ? (
-            locations
-              .slice(0, 6)
-              .map((location) => (
-                <CardMainLocation key={location.id} loc={location} />
-              ))
-          ) : (
-            <Spinner />
-          )}
-          <CardMore />
-        </Slider>
-      </div>
+    <section className={style.location} id='locations'>
+      <Layout>
+        <SectionTitle text={'рекомендуемые локации'} />
+        <SectionSearch
+          text={'места куда вам захочется вернуться :)'}
+          placeholder={'Отыщи свой уголок'}
+          section={'locations'}
+        />
+        <div className={style.sliderWrapper}>
+          <div className={style.slider}>
+            <Slider {...settings}>
+              {locations.length ? (
+                locations
+                  .slice(0, 5)
+                  .map((location) => (
+                    <CardMainLocation key={location.id} loc={location} />
+                  ))
+              ) : (
+                <Spinner />
+              )}
+              <CardMore />
+            </Slider>
+          </div>
+        </div>
+      </Layout>
     </section>
   );
 };

@@ -29,8 +29,8 @@ export const Header = () => {
   return (
     <header className={style.header} id='header'>
       <Layout>
-        <div className={style.header__wrapper}>
-          <div>
+        <div className={style.wrapper}>
+          <div className={style.content}>
             {location.pathname === '/' && (
               <>
                 <h1 className={style.title}>КУДА СХОДИТЬ?</h1>
@@ -38,7 +38,7 @@ export const Header = () => {
                   отдых, который подойдет именно Вам
                 </p>
                 <span className={style.city}>Краснодар</span>
-                {!authData[0]?.login && showWarning && (
+                {!authData.login && showWarning && (
                   <WarningMessage setClose={() => setShowWarning(false)} />
                 )}
               </>
@@ -87,29 +87,31 @@ export const Header = () => {
               </>
             )}
           </div>
-          <div className={style.header__wrapper}>
-            {authData[0]?.login && (
+          <div className={style.iconWrapper}>
+            {authData?.login && (
               <div className={style.header__authText}>
-                Добро пожаловать,{' '}
-                <span className={style.login}>{authData[0]?.login} !</span>
+                <p className={style.authText}>Добро пожаловать,</p>
+                <p className={style.login}>{authData?.login} !</p>
               </div>
             )}
             <Auth openModal={() => handleOpenModal()} />
             {isOpenBurger && (
-              <div className={style.header__burger_menu}>
+              <div className={style.header__burgerMenu}>
                 <Collection className={style.header__burger_svg} />
                 <Chat className={style.header__burger_svg} />
                 <Notification className={style.header__burger_svg} />
               </div>
             )}
-            <BurgerSvg
-              className={style.header__burger}
+            <button
+              className={style.burgerBtn}
               onClick={() => setIsOpenBurger(!isOpenBurger)}
-            />
+            >
+              <BurgerSvg />
+            </button>
           </div>
         </div>
 
-        {!authData[0]?.login && (
+        {!authData?.login && (
           <Modal active={showModal} closeModal={() => setShowModal(false)} />
         )}
       </Layout>
