@@ -8,6 +8,7 @@ export const CardEvent = ({ source, description, id, date, title, img }) => {
   const shortSource = source ? source.slice(8, 28) : '';
 
   const imgLinks = img ? img.split('|') : [];
+
   return (
     <Link to={`${id}`} className={style.wrapper}>
       <div className={style.imgWrapper}>

@@ -35,6 +35,20 @@
   transform: translateY(-50%);
 }
 
+.button,
+.buttonClose {
+  position: absolute;
+  display: block;
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+  border: 0;
+  right: 55px;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: color 0.36s ease-in-out;
+}
+
 @media (max-width: 768px) {
   .text {
     font-size: 12px;

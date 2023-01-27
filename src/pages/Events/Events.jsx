@@ -16,8 +16,6 @@ export const Events = () => {
   const navigate = useNavigate();
 
   const searchEvents = useSelector((state) => state.search.searchEvents);
-  const searchValue = useSelector((state) => state.search.searchValue);
-
   const events = useSelector((state) => state.events.data);
   const loading = useSelector((state) => state.events.loading);
 
@@ -25,8 +23,7 @@ export const Events = () => {
     dispatch(fetchEvents());
   }, []);
 
-  const filteredEvents =
-    searchEvents.length || searchValue ? searchEvents : events;
+  const filteredEvents = searchEvents.length ? searchEvents : events;
 
   const handleClickHome = () => {
     navigate('/');
@@ -65,13 +62,13 @@ export const Events = () => {
         {filteredEvents.length > 0 ? (
           filteredEvents.map((event) => (
             <CardEvent
-              key={event.id}
+              key={event._id}
               title={event.title}
               description={event.description}
               date={event.startDatetime}
               source={event.linkEventSite}
-              id={event.id}
-              img={event.linkImage}
+              id={event._id}
+              img={event.location.linkImage}
             />
           ))
         ) : (

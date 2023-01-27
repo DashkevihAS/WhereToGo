@@ -19,14 +19,14 @@ export const Locations = () => {
   const loading = useSelector((state) => state.locations.loading);
 
   const searchLocations = useSelector((state) => state.search.searchLocations);
-  const searchValue = useSelector((state) => state.search.searchValue);
 
   React.useEffect(() => {
     dispatch(fetchLocations());
   }, []);
 
-  const filteredLocations =
-    searchLocations.length || searchValue ? searchLocations : locations;
+  const filteredLocations = searchLocations.length
+    ? searchLocations
+    : locations;
 
   const handleClickHome = () => {
     navigate('/');
@@ -65,13 +65,13 @@ export const Locations = () => {
         {filteredLocations.length > 0 ? (
           filteredLocations.map((location) => (
             <CardLocation
-              key={location.id}
+              key={location._id}
               title={location.title}
               description={location.description}
               fullDescription={location.fullDescription}
               date={location.workTimeStart}
               source={location.linkSite}
-              id={location.id}
+              id={location._id}
               img={location.linkImage}
             />
           ))
