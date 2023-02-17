@@ -1,26 +1,44 @@
-import style from './Header.module.css';
-import { Auth } from './Auth/Auth';
-import { Layout } from '../../Layouts/Layout/Layout';
+import { useEffect, useState } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
+import Auth from './Auth';
+import Layout from '../../Layouts/Layout';
+import Search from '../Search';
+import ModalAuth from '../ModalAuth';
+import WarningMessage from './WarningMessage';
 import { ReactComponent as BurgerSvg } from './img/burger_menu.svg';
 import { ReactComponent as Notification } from './img/notification.svg';
 import { ReactComponent as Collection } from './img/collection.svg';
 import { ReactComponent as Chat } from './img/chat.svg';
-import { useState } from 'react';
-import { Search } from '../Search/Search';
-import { useLocation, useParams } from 'react-router-dom';
-import { Modal } from '../Modal/Modal';
-import { WarningMessage } from './WarningMessage/WarningMessage';
-import { useSelector } from 'react-redux';
+
+import style from './Header.module.css';
 
 export const Header = () => {
   const [isOpenBurger, setIsOpenBurger] = useState(false);
   const [showWarning, setShowWarning] = useState(true);
   const [showModal, setShowModal] = useState(false);
+  const [isShowGreetings, setIsShowGreetings] = useState(false);
 
   const location = useLocation();
-  const { id } = useParams();
+  const { id, type, category } = useParams();
 
-  const authData = useSelector((state) => state.auth.data);
+  const token = useSelector((state) => state.auth.data.token);
+  const login = useSelector((state) => state.auth.data.login);
+
+  useEffect(() => {
+    setIsShowGreetings(false);
+    if (!login) return;
+
+    setIsShowGreetings(true);
+    const greetingsTimer = setTimeout(() => {
+      setIsShowGreetings(false);
+    }, 5000);
+
+    return () => {
+      clearTimeout(greetingsTimer);
+    };
+  }, [login]);
 
   const handleOpenModal = () => {
     setShowModal(true);
@@ -38,8 +56,11 @@ export const Header = () => {
                   отдых, который подойдет именно Вам
                 </p>
                 <span className={style.city}>Краснодар</span>
-                {!authData.login && showWarning && (
-                  <WarningMessage setClose={() => setShowWarning(false)} />
+                {!token && showWarning && (
+                  <WarningMessage
+                    openModal={() => setShowModal(true)}
+                    setClose={() => setShowWarning(false)}
+                  />
                 )}
               </>
             )}
@@ -81,6 +102,12 @@ export const Header = () => {
                 </p>
               </>
             )}
+            {location.pathname === `/routes/${type}/${category}` && (
+              <>
+                <p className={style.events}>маршрутЪ</p>
+                <p className={style.subtitleEvents}>который стоит пройти :)</p>
+              </>
+            )}
             {location.pathname === `/routespages/${id}` && (
               <>
                 <p className={style.events}>Страница в разработке</p>
@@ -88,10 +115,10 @@ export const Header = () => {
             )}
           </div>
           <div className={style.iconWrapper}>
-            {authData?.login && (
+            {isShowGreetings && (
               <div className={style.header__authText}>
                 <p className={style.authText}>Добро пожаловать,</p>
-                <p className={style.login}>{authData?.login} !</p>
+                <p className={style.login}>{login} </p>
               </div>
             )}
             <Auth openModal={() => handleOpenModal()} />
@@ -111,8 +138,11 @@ export const Header = () => {
           </div>
         </div>
 
-        {!authData?.login && (
-          <Modal active={showModal} closeModal={() => setShowModal(false)} />
+        {!token && (
+          <ModalAuth
+            active={showModal}
+            closeModal={() => setShowModal(false)}
+          />
         )}
       </Layout>
     </header>

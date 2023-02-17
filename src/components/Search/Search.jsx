@@ -2,25 +2,56 @@ import React from 'react';
 import style from './Search.module.css';
 
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  fetchSearchEvents,
-  fetchSearchLocations,
-} from '../../store/search/searchAction';
 import { clearSearch, setSearchValue } from '../../store/search/searchSlice';
+import { resetLocations } from '../../store/locations/locationsSlice';
+import {
+  fetchLocations,
+  fetchSearchLocations,
+} from '../../store/locations/locationsAction';
+import {
+  fetchEvents,
+  fetchSearchEvents,
+} from '../../store/events/eventsAction';
+import { resetEvents } from '../../store/events/eventsSlice';
 
 export const Search = ({ searchType }) => {
   const searchValue = useSelector((state) => state.search.searchValue);
+
+  const [search, setSearch] = React.useState(searchValue);
   const dispatch = useDispatch();
 
   const handlerSubmit = (e) => {
     e.preventDefault();
-    searchType === 'events'
-      ? dispatch(fetchSearchEvents(searchValue))
-      : dispatch(fetchSearchLocations(searchValue));
+    if (!search) return;
+
+    if (searchType === 'events') {
+      dispatch(resetEvents());
+      dispatch(fetchSearchEvents(search));
+      dispatch(setSearchValue(search));
+    }
+    if (searchType === 'locations') {
+      dispatch(resetLocations());
+      dispatch(fetchSearchLocations(search));
+      dispatch(setSearchValue(search));
+    }
   };
 
   const handleClickClose = () => {
+    if (searchType === 'events') {
+      dispatch(resetEvents());
+      dispatch(fetchEvents());
+    }
+    if (searchType === 'locations') {
+      dispatch(resetLocations());
+      dispatch(fetchLocations());
+    }
+
     dispatch(clearSearch());
+    setSearch('');
+  };
+
+  const handlerChangeInput = (e) => {
+    setSearch(e.target.value);
   };
 
   return (
@@ -28,11 +59,11 @@ export const Search = ({ searchType }) => {
       <input
         className={style.search}
         type='search'
-        onChange={(e) => dispatch(setSearchValue(e.target.value))}
-        value={searchValue}
+        onChange={handlerChangeInput}
+        value={search}
         placeholder='поиск'
       />
-      {searchValue && (
+      {search && (
         <button
           className={style.buttonClose}
           type='button'

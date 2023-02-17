@@ -1,3 +1,4 @@
+import { API_URI } from '../../assets/const';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
@@ -6,13 +7,18 @@ export const fetchAuthData = createAsyncThunk(
   ({ login, password }, { rejectWithValue }) => {
     return axios({
       method: 'post',
-      url: 'http://95.163.237.3:8179/wtg/login',
+      url: `${API_URI}/login`,
       data: { login, password },
       headers: {
         'Content-Type': 'application/json',
       },
     })
-      .then(({ data }) => data)
+      .then(({ data }) => {
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('login', data.login);
+        localStorage.setItem('firstName', data.firstName);
+        return data;
+      })
       .catch((err) => rejectWithValue(err));
   },
 );
