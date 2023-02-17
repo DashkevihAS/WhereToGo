@@ -4,10 +4,10 @@ import noPhoto from '../../img/nophoto.jpg';
 
 export const CardMainLocation = ({ loc }) => {
   return (
-    <Link to={`locations/${loc.id}`} className={style.locWrap}>
+    <Link to={`locations/${loc._id}`} className={style.locWrap}>
       <img
         className={style.locImg}
-        src={loc?.linkImage ? loc?.linkImage.split('|')[0] : noPhoto}
+        src={loc.linkImage ? loc.linkImage.split('|')[0] : noPhoto}
         alt={loc.title}
         width={278}
         height={330}

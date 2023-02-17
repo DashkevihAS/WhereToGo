@@ -1,8 +1,8 @@
-export const API_URI = 'http://95.163.237.3:8179/wtg';
-// export const API_URI = 'http://localhost:8179/wtg';
+// export const API_URI = 'http://95.163.237.3:8179/wtg/api/v1';
+// export const API_URI = 'http://localhost:8179/wtg/api/v1';
+export const API_URI = 'https://abrupt-carnelian-hoof.glitch.me/wtg/api/v1';
 
-export const PAGE_SIZE = 'pageSize=10';
-export const MONTHES = [
+export const monthes = [
   'января',
   'февраля',
   'марта',
@@ -16,9 +16,3 @@ export const MONTHES = [
   'ноября',
   'декабря',
 ];
-
-export const RADIUSES = {
-  Walk: 100,
-  Bicycle: 200,
-  Car: 300,
-};

@@ -1,16 +1,17 @@
+import React from 'react';
+
 import style from './WarningMessage.module.css';
 
 export const WarningMessage = ({ setClose, openModal }) => {
   return (
     <div className={style.wrapper}>
-      <div className={style.descr}>
+      <span className={style.descr}>
         Чтобы получить расширенный функционал{' '}
-        <button className={style.registrationBtn} onClick={() => openModal()}>
+        <button className={style.registrationBtn} onClick={openModal}>
           зарегистрируйтесь
         </button>{' '}
         в приложении WTG
-      </div>
-
+      </span>
       <button className={style.closeBtn} onClick={() => setClose()}>
         <svg
           width='40'
